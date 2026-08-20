@@ -1,95 +1,151 @@
-# Project — Bank System (OOP)
+# OOP Bank System
 
-## Description
+A console-based banking management system built in **C++** to practice object-oriented programming and turn core programming concepts into a complete, menu-driven application.
 
-The **Bank System (OOP)** project is a console-based banking application written in C++. It models common banking operations through a structured object-oriented design rather than a single procedural program.
+> **Status:** Educational project
+>
+> All data included in this repository is fictional. This application is not intended for real financial use.
 
-The project was developed as a practical exercise in converting programming concepts into a maintainable application. Its classes separate people, users, bank clients, screens, validation, and file-based persistence so that new features can be added without rewriting the entire system.
+## Overview
 
-## Project Objectives
+The system models a small bank environment with separate classes for people, users, bank clients, screens, validation, and file-based persistence.
 
-The main objectives of this project are to:
+The project was built independently as a practical OOP project, with an emphasis on separating responsibilities instead of keeping the entire application inside procedural functions.
 
-- Apply the four pillars of object-oriented programming: encapsulation, abstraction, inheritance, and polymorphism.
-- Build a reusable domain model for users and bank clients.
-- Separate presentation screens from business operations and data storage.
-- Implement practical CRUD operations for users and clients.
-- Practice validation, file handling, permissions, and transaction workflows.
-- Design a console application that can be extended incrementally.
+## Features
 
-## System Overview
+- User authentication and login auditing
+- User management
+- Client management
+- Add, list, find, update, and delete clients
+- Add, list, find, update, and delete users
+- Deposit and withdrawal operations
+- Client balance and total-balance reporting
+- Permission-based user operations
+- Input validation
+- File-based data persistence
+- Reusable date, string, and utility classes
 
-The application provides a simple banking workflow with the following capabilities:
+## Design
 
-- User login and authentication.
-- User management with permission flags.
-- Adding, listing, finding, updating, and deleting bank clients.
-- Depositing and withdrawing money.
-- Displaying client balances and total balances.
-- Recording login activity in an audit file.
-- Reusing common date, string, input-validation, and screen functionality.
-
-All bundled records are **fictional demo data** created for this public repository. The demonstration login is `demo.admin` with password `demo123`.
-
-## Architecture
+The project separates the main responsibilities into several groups:
 
 ```text
-Bank System
-├── Domain Model
-│   ├── clsPerson
-│   ├── clsUser
-│   └── clsBankClient
-├── Presentation Layer
-│   ├── clsLoginScreen
-│   ├── clsMainScreen
-│   ├── clsManageUsersScreen
-│   ├── clsClientListScreen
-│   └── Transaction and client screens
-├── Shared Utilities
-│   ├── clsDate
-│   ├── clsString
-│   ├── clsInputValidate
-│   └── clsUtil
-└── File-Based Storage
-    ├── Users.txt
-    ├── Clients.txt
-    └── LoginRegister.txt
+OOP-Bank-System/
+│
+├── Domain
+│   ├── clsPerson.h
+│   ├── clsUser.h
+│   └── clsBankClient.h
+│
+├── Screens
+│   ├── clsLoginScreen.h
+│   ├── clsMainScreen.h
+│   ├── clsManageUsersScreen.h
+│   ├── clsClientListScreen.h
+│   ├── clsAddNewClientScreen.h
+│   ├── clsUpdateClientScreen.h
+│   ├── clsDeleteClientScreen.h
+│   ├── clsDepositScreen.h
+│   ├── clsWithdrawScreen.h
+│   └── ...
+│
+├── Utilities
+│   ├── clsDate.h
+│   ├── clsString.h
+│   ├── clsInputValidate.h
+│   └── clsUtil.h
+│
+├── Data
+│   ├── Users.txt
+│   ├── Clients.txt
+│   └── LoginRegister.txt
+│
+└── README.md
 ```
 
-The base classes provide shared behavior, while specialized screen classes handle individual user interactions. The application stores its demonstration data in text files using a delimiter-based record format.
+The current repository keeps these files at the project root for compatibility with the existing Visual Studio project. The structure above represents the intended logical organization of the code.
 
-## Technologies Used
+## OOP Concepts Practiced
 
-- **C++** for the application implementation.
-- **Object-oriented design** using inheritance, encapsulation, and reusable classes.
-- **File-based persistence** using standard C++ streams.
-- **Visual Studio solution and project files** for building the console application.
-- **Console-based user interface** with validation and menu-driven navigation.
+- **Encapsulation** — keeping data and related operations together inside classes.
+- **Inheritance** — deriving specialized classes such as users and bank clients from common person functionality.
+- **Abstraction** — exposing high-level operations while hiding implementation details.
+- **Polymorphism** — using shared interfaces/behavior where appropriate.
+- **Composition and reuse** — building screens and utilities from reusable components.
 
-## Features Implemented
+## Data Flow
 
-| Feature | Description | Main concepts practiced |
-| --- | --- | --- |
-| Authentication | Login workflow with repeated login attempts and audit logging. | Encapsulation, file handling |
-| User management | Add, list, find, update, and delete system users. | CRUD, permissions |
-| Client management | Add, list, find, update, and delete bank clients. | Classes, persistence |
-| Deposits and withdrawals | Update client balances through transaction screens. | Business rules, validation |
-| Total balances | Calculate and display aggregate client balances. | Collections, aggregation |
-| Shared screens | Reuse common display behavior through base screen classes. | Inheritance, abstraction |
+```text
+User
+  ↓
+Login Screen
+  ↓
+Main Screen
+  ├── User Management ──→ Users.txt
+  ├── Client Management ─→ Clients.txt
+  └── Transactions ──────→ Client balances
+```
 
-## Key Takeaways
+The application uses text files for persistence. Records are loaded into objects, modified through the application, and written back to the corresponding files.
 
-This project demonstrates how an application becomes easier to maintain when responsibilities are divided between focused classes. The `clsPerson` base class provides common identity information, while `clsUser` and `clsBankClient` extend it with role-specific behavior.
+## Technologies
 
-The screen classes keep user interaction separate from the domain model. File-handling methods encapsulate persistence details, allowing the rest of the application to work with objects instead of raw text records.
+- C++
+- Object-Oriented Programming
+- Standard C++ library
+- File I/O
+- Console UI
+- Visual Studio
 
-## How to Run
+## Project Structure and Responsibility
 
-1. Open `Lesson #01 - Find Client.sln` in Visual Studio on Windows.
-2. Build the solution using the available C++ configuration.
-3. Run the console application from the project directory so that the relative data files can be found.
-4. Use the demo credentials `demo.admin` and `demo123` to enter the system.
+| Component | Responsibility |
+| --- | --- |
+| `clsPerson` | Common person information and behavior |
+| `clsUser` | System users, permissions, and authentication data |
+| `clsBankClient` | Bank-client information and account operations |
+| `clsScreen` | Shared screen functionality |
+| `clsLoginScreen` | Authentication workflow |
+| `clsMainScreen` | Main application navigation |
+| `cls*Screen` classes | Individual application operations |
+| `clsInputValidate` | Input and range validation |
+| `clsDate` | Date-related operations |
+| `clsString` | String-related helpers |
+| `clsUtil` | General reusable utilities |
 
-## Final Notes
+## Running the Project
 
-This repository represents a practical OOP banking application built around incremental learning. It is intentionally educational and uses local text files rather than a production database or real authentication service. The demo data must not be treated as real financial information.
+### Requirements
+
+- Windows
+- Visual Studio with C++ development tools
+
+### Steps
+
+1. Clone the repository.
+2. Open `Lesson #01 - Find Client.sln` in Visual Studio.
+3. Build the solution.
+4. Run the application from the project directory so the relative data files can be located.
+5. Use the fictional demo records included in the repository if prompted for credentials.
+
+## Learning Goals
+
+This project was created to strengthen practical understanding of:
+
+- Designing classes around responsibilities
+- Reusing common functionality
+- Managing application state
+- CRUD workflows
+- File-based persistence
+- Validation and error handling
+- Building a larger console application from smaller components
+
+## Limitations
+
+This is an educational project. It intentionally uses local text files instead of a database and does not implement production-grade authentication, encryption, concurrency control, or financial security.
+
+## Author
+
+**Raed Basim Hillel**  
+[GitHub](https://github.com/Raed885)
