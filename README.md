@@ -26,9 +26,7 @@ The project was built independently as a practical OOP project, with an emphasis
 - File-based data persistence
 - Reusable date, string, and utility classes
 
-## Design
-
-The project separates the main responsibilities into several groups:
+## Architecture
 
 ```text
 OOP-Bank-System/
@@ -71,7 +69,6 @@ The current repository keeps these files at the project root for compatibility w
 - **Encapsulation** — keeping data and related operations together inside classes.
 - **Inheritance** — deriving specialized classes such as users and bank clients from common person functionality.
 - **Abstraction** — exposing high-level operations while hiding implementation details.
-- **Polymorphism** — using shared interfaces/behavior where appropriate.
 - **Composition and reuse** — building screens and utilities from reusable components.
 
 ## Data Flow
@@ -124,10 +121,10 @@ The application uses text files for persistence. Records are loaded into objects
 ### Steps
 
 1. Clone the repository.
-2. Open `Lesson #01 - Find Client.sln` in Visual Studio.
+2. Open the Visual Studio solution in the repository.
 3. Build the solution.
 4. Run the application from the project directory so the relative data files can be located.
-5. Use the fictional demo records included in the repository if prompted for credentials.
+5. Use the fictional demo records included with the project if prompted for credentials.
 
 ## Learning Goals
 
@@ -141,9 +138,11 @@ This project was created to strengthen practical understanding of:
 - Validation and error handling
 - Building a larger console application from smaller components
 
-## Limitations
+## Limitations and Security Notes
 
-This is an educational project. It intentionally uses local text files instead of a database and does not implement production-grade authentication, encryption, concurrency control, or financial security.
+This is an educational project. It intentionally uses local text files instead of a database and does not implement production-grade authentication, password hashing, encryption, concurrency control, or financial security.
+
+The repository currently contains demo credentials for local testing. These are fictional and must not be reused in real systems. A production implementation should never store plaintext passwords and should keep runtime data outside version control.
 
 ## Author
 
