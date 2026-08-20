@@ -4,13 +4,13 @@ A console-based banking management system built in **C++** to practice object-or
 
 > **Status:** Educational project
 >
-> All data included in this repository is fictional. This application is not intended for real financial use.
+> All included records are fictional. This application is not intended for real financial use.
 
 ## Overview
 
 The system models a small bank environment with separate classes for people, users, bank clients, screens, validation, and file-based persistence.
 
-The project was built independently as a practical OOP project, with an emphasis on separating responsibilities instead of keeping the entire application inside procedural functions.
+The project was built independently as a practical OOP project, with an emphasis on reusable classes and separating responsibilities across the application.
 
 ## Features
 
@@ -20,129 +20,141 @@ The project was built independently as a practical OOP project, with an emphasis
 - Add, list, find, update, and delete clients
 - Add, list, find, update, and delete users
 - Deposit and withdrawal operations
-- Client balance and total-balance reporting
-- Permission-based user operations
+- Balance and total-balance reporting
+- Permission-based operations
 - Input validation
-- File-based data persistence
+- File-based persistence
 - Reusable date, string, and utility classes
 
-## Architecture
+## Project Structure
 
 ```text
 OOP-Bank-System/
 │
-├── Domain
-│   ├── clsPerson.h
-│   ├── clsUser.h
-│   └── clsBankClient.h
+├── src/
+│   ├── main.cpp
+│   └── clsFindUserScreen.cpp
 │
-├── Screens
-│   ├── clsLoginScreen.h
-│   ├── clsMainScreen.h
-│   ├── clsManageUsersScreen.h
-│   ├── clsClientListScreen.h
-│   ├── clsAddNewClientScreen.h
-│   ├── clsUpdateClientScreen.h
-│   ├── clsDeleteClientScreen.h
-│   ├── clsDepositScreen.h
-│   ├── clsWithdrawScreen.h
-│   └── ...
+├── Global.h
+├── clsPerson.h
+├── clsUser.h
+├── clsBankClient.h
+├── clsScreen.h
+├── clsLoginScreen.h
+├── clsMainScreen.h
+├── cls*Screen.h
+├── clsDate.h
+├── clsString.h
+├── clsInputValidate.h
+├── clsUtil.h
 │
-├── Utilities
-│   ├── clsDate.h
-│   ├── clsString.h
-│   ├── clsInputValidate.h
-│   └── clsUtil.h
+├── Clients.txt
+├── Users.txt
+├── LoginRegister.txt
 │
-├── Data
-│   ├── Users.txt
-│   ├── Clients.txt
-│   └── LoginRegister.txt
-│
+├── OOP-Bank-System.sln
+├── OOP-Bank-System.vcxproj
+├── OOP-Bank-System.vcxproj.filters
 └── README.md
 ```
 
-The current repository keeps these files at the project root for compatibility with the existing Visual Studio project. The structure above represents the intended logical organization of the code.
+The current layout keeps the header-based classes at the project root because the application was originally designed around reusable header classes. The executable entry points and implementation files are separated under `src/`.
+
+## Architecture
+
+```text
+                    ┌─────────────────┐
+                    │   main.cpp      │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │  Login Screen   │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │  Main Screen    │
+                    └───────┬─────────┘
+                            / \
+                           /   \
+                          ▼     ▼
+                User Management  Client Management
+                       │               │
+                       ▼               ▼
+                   Users.txt       Clients.txt
+
+                       Transactions
+                            │
+                            ▼
+                       Client balance
+```
 
 ## OOP Concepts Practiced
 
 - **Encapsulation** — keeping data and related operations together inside classes.
-- **Inheritance** — deriving specialized classes such as users and bank clients from common person functionality.
-- **Abstraction** — exposing high-level operations while hiding implementation details.
-- **Composition and reuse** — building screens and utilities from reusable components.
+- **Inheritance** — deriving specialized classes such as `clsUser` and `clsBankClient` from `clsPerson`.
+- **Abstraction** — exposing high-level operations while keeping implementation details inside classes.
+- **Composition and reuse** — building screens and application workflows from reusable components.
 
-## Data Flow
+## Main Components
 
-```text
-User
-  ↓
-Login Screen
-  ↓
-Main Screen
-  ├── User Management ──→ Users.txt
-  ├── Client Management ─→ Clients.txt
-  └── Transactions ──────→ Client balances
-```
-
-The application uses text files for persistence. Records are loaded into objects, modified through the application, and written back to the corresponding files.
+| Component | Responsibility |
+| --- | --- |
+| `clsPerson` | Common personal information |
+| `clsUser` | Users, permissions, authentication data, and persistence |
+| `clsBankClient` | Client information, account balance, and transactions |
+| `clsScreen` | Shared screen functionality |
+| `clsLoginScreen` | Authentication workflow |
+| `clsMainScreen` | Main application navigation |
+| `cls*Screen` | Individual application operations |
+| `clsInputValidate` | Input and range validation |
+| `clsDate` | Date-related operations |
+| `clsString` | String helpers |
+| `clsUtil` | General reusable utilities |
 
 ## Technologies
 
 - C++
 - Object-Oriented Programming
-- Standard C++ library
+- Standard C++ Library
 - File I/O
 - Console UI
 - Visual Studio
-
-## Project Structure and Responsibility
-
-| Component | Responsibility |
-| --- | --- |
-| `clsPerson` | Common person information and behavior |
-| `clsUser` | System users, permissions, and authentication data |
-| `clsBankClient` | Bank-client information and account operations |
-| `clsScreen` | Shared screen functionality |
-| `clsLoginScreen` | Authentication workflow |
-| `clsMainScreen` | Main application navigation |
-| `cls*Screen` classes | Individual application operations |
-| `clsInputValidate` | Input and range validation |
-| `clsDate` | Date-related operations |
-| `clsString` | String-related helpers |
-| `clsUtil` | General reusable utilities |
 
 ## Running the Project
 
 ### Requirements
 
 - Windows
-- Visual Studio with C++ development tools
+- Visual Studio with the C++ development workload
 
 ### Steps
 
 1. Clone the repository.
-2. Open the Visual Studio solution in the repository.
+2. Open `OOP-Bank-System.sln` in Visual Studio.
 3. Build the solution.
 4. Run the application from the project directory so the relative data files can be located.
-5. Use the fictional demo records included with the project if prompted for credentials.
+5. Use the fictional demo credentials included in `Users.txt` for local testing.
 
 ## Learning Goals
 
 This project was created to strengthen practical understanding of:
 
-- Designing classes around responsibilities
-- Reusing common functionality
-- Managing application state
+- Designing classes around clear responsibilities
+- Encapsulation and inheritance
+- Reusable components
 - CRUD workflows
 - File-based persistence
-- Validation and error handling
-- Building a larger console application from smaller components
+- Permission and authentication workflows
+- Input validation
+- Building a larger application from smaller components
 
 ## Limitations and Security Notes
 
-This is an educational project. It intentionally uses local text files instead of a database and does not implement production-grade authentication, password hashing, encryption, concurrency control, or financial security.
+This is an educational project. It uses local text files instead of a database and does not implement production-grade authentication, password hashing, encryption, concurrency control, or financial security.
 
-The repository currently contains demo credentials for local testing. These are fictional and must not be reused in real systems. A production implementation should never store plaintext passwords and should keep runtime data outside version control.
+The repository contains fictional demo credentials for local testing. They must not be reused in real systems. A production implementation should never store plaintext passwords and should keep runtime data outside version control.
 
 ## Author
 
